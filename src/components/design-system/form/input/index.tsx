@@ -7,7 +7,7 @@ interface InputFieldProps {
   className?: string;
   disabled?: boolean;
   value?: string;
-  onChange?: () => void;
+  onChange?: any;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -17,6 +17,7 @@ const InputField: React.FC<InputFieldProps> = ({
   className = "",
   disabled = false,
   value = "",
+  onChange,
 }) => {
   return (
     <input
@@ -24,7 +25,8 @@ const InputField: React.FC<InputFieldProps> = ({
       required={required}
       value={value}
       placeholder={placeholder}
-      className={`input-field border border-2 px-2 py-1 w-full  ${className}`} // Add a default className and allow additional classes
+      className={`input-field border border-2 px-2 py-1 w-full  ${className}`}
+      onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
     />
   );

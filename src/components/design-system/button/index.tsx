@@ -4,10 +4,10 @@ import styled from "styled-components";
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
   variant?: ButtonVariant;
   size?: ButtonSize;
-  fullWidth?: boolean;
+  fullwidth?: boolean;
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -67,7 +67,7 @@ const StyledButton = styled.button<ButtonProps>`
         return "transparent";
     }
   }};
-  width: ${(props) => (props.fullWidth ? "100%" : "auto")};
+  width: ${(props) => (props.fullwidth ? "100%" : "auto")};
   height: fit-content;
   border: none;
   border-radius: 4px;
@@ -97,14 +97,14 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   variant = ButtonVariant.Primary,
   size = ButtonSize.Medium,
-  fullWidth = false,
+  fullwidth = false,
 }) => {
   return (
     <StyledButton
       onClick={onClick}
       variant={variant}
       size={size}
-      fullWidth={fullWidth}
+      fullwidth={fullwidth || undefined}
     >
       {children}
     </StyledButton>

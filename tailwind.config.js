@@ -22,6 +22,18 @@ module.exports = {
         blue_cerulean_forest: "#6d9bc3",
         black_semi_transparent: "rgba(0, 0, 0, 0.5)",
       },
+      keyframes: {
+        slideIn: {
+          "0%": { right: "-100%" },
+          "25%": { right: "-75%" },
+          "50%": { right: "-50%" },
+          "75%": { right: "-25%" },
+          "100%": { right: "0px" },
+        },
+      },
+      animation: {
+        slideIn: "slideIn 1s ease-in forwards",
+      },
     },
   },
   plugins: [],

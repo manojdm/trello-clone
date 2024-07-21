@@ -4,10 +4,23 @@ import InProgressList from "@/components/dashboard/columns/in-progress-list";
 import TodoList from "@/components/dashboard/columns/todo-list";
 import Button from "@/components/design-system/button";
 import InputField from "@/components/design-system/form/input";
+import { useSelector } from "@/store/hooks";
+import { RootState } from "@/store/store";
 import { ButtonSize, ButtonVariant } from "@/types/button-types";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const Dashboard = () => {
+  const router = useRouter();
+
+  const signin = useSelector((state: RootState) => state.signin);
+
+  useEffect(() => {
+    if (!signin.authenticated) {
+      router.push("/signin");
+    }
+  }, [signin.authenticated]);
+
   return (
     <div className="dashboard p-4">
       <div className="addTaskSection">
