@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import signupReducer from "./slices/auth/signup/slice";
 import signinReducer from "./slices/auth/signin/slice";
+import tasks from "./slices/tasks/slice";
 
 export const store = configureStore({
   reducer: {
     signup: signupReducer,
     signin: signinReducer,
+    tasks: tasks,
   },
   devTools: true,
 });
@@ -13,6 +15,7 @@ export const store = configureStore({
 const rootReducer = combineReducers({
   signup: signupReducer,
   signin: signinReducer,
+  tasks: tasks,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

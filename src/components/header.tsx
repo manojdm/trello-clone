@@ -9,7 +9,6 @@ import { RootState } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "@/store/hooks";
 import { setUserLogout } from "@/store/slices/auth/signin/slice";
-import { ErrorMessage } from "./design-system/errorSlider";
 
 const Header = () => {
   const router = useRouter();

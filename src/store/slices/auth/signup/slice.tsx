@@ -1,4 +1,3 @@
-import { AppDispatch } from "@/store/store";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface stateType {

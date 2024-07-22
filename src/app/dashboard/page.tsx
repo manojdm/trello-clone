@@ -1,19 +1,24 @@
 "use client";
+import AddTask from "@/components/dashboard/add-tasks";
 import DoneList from "@/components/dashboard/columns/done-list";
 import InProgressList from "@/components/dashboard/columns/in-progress-list";
 import TodoList from "@/components/dashboard/columns/todo-list";
-import Button from "@/components/design-system/button";
 import InputField from "@/components/design-system/form/input";
-import { useSelector } from "@/store/hooks";
+import { useDispatch, useSelector } from "@/store/hooks";
+import { getTasks } from "@/store/slices/tasks/action";
 import { RootState } from "@/store/store";
-import { ButtonSize, ButtonVariant } from "@/types/button-types";
+import { ColTypes } from "@/types/col-types";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const signin = useSelector((state: RootState) => state.signin);
+  const tasksList = useSelector((state: RootState) => state.tasks);
+
+  const [tasks, setTasks] = useState<any>([]);
 
   useEffect(() => {
     if (!signin.authenticated) {
@@ -21,13 +26,23 @@ const Dashboard = () => {
     }
   }, [signin.authenticated]);
 
+  useEffect(() => {
+    if (
+      !tasksList.isLoading &&
+      !tasksList.success &&
+      tasksList.tasks.length === 0
+    ) {
+      dispatch(getTasks());
+    } else {
+      setTasks(tasksList?.tasks);
+    }
+
+    console.log(tasks);
+  }, [tasks]);
+
   return (
     <div className="dashboard p-4">
-      <div className="addTaskSection">
-        <Button variant={ButtonVariant.Secondary} size={ButtonSize.Medium}>
-          Add Task
-        </Button>
-      </div>
+      <AddTask />
       <div className="searchBarSection my-6">
         <div className="border px-3 py-2 shadow-sm">
           <span className="searchText">Search: </span>
@@ -39,9 +54,21 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="trelloBoard flex flex-col lg:!flex-row items-start justify-between gap-6">
-        <TodoList />
-        <InProgressList />
-        <DoneList />
+        <TodoList
+          tasks={tasksList.tasks.filter(
+            (task) => task.status === ColTypes.CREATED
+          )}
+        />
+        <InProgressList
+          tasks={tasksList.tasks.filter(
+            (task) => task.status === ColTypes.INPROGRESS
+          )}
+        />
+        <DoneList
+          tasks={tasksList.tasks.filter(
+            (task) => task.status === ColTypes.DONE
+          )}
+        />
       </div>
     </div>
   );

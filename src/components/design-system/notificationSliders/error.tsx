@@ -1,4 +1,3 @@
-// src/components/ErrorMessage.tsx
 "use client";
 import React, { useEffect, useState } from "react";
 import { BiMessageAltError } from "react-icons/bi";

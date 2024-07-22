@@ -1,10 +1,10 @@
 import { AppDispatch } from "@/store/store";
-import { userData } from "@/types/interfaces";
+import { iUserData } from "@/types/interfaces";
 import { setUserData, setUserLoader, setUserLoginFail } from "./slice";
 import { AuthService } from "@/service/Auth";
 
 export const signupUser =
-  (userData: userData) => async (dispatch: AppDispatch) => {
+  (userData: iUserData) => async (dispatch: AppDispatch) => {
     try {
       dispatch(setUserLoader());
 

@@ -1,4 +1,3 @@
-// src/types/buttonTypes.ts
 export enum ButtonVariant {
     Primary = 'primary',
     Secondary = 'secondary',

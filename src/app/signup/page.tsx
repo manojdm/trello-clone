@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/components/design-system/button";
-import ErrorMessage from "@/components/design-system/errorSlider";
 import InputField from "@/components/design-system/form/input";
+import ErrorMessage from "@/components/design-system/notificationSliders/error";
 import Text from "@/components/design-system/text";
 import { useDispatch, useSelector } from "@/store/hooks";
 import { signupUser } from "@/store/slices/auth/signup/action";
