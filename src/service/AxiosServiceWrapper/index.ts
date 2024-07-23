@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios"
+import axios from "axios"
 
 
 const queryBuilder = (methodType: string, url: string, token?: string , payload?: any, params?: any, headers?: any) => {

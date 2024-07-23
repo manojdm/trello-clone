@@ -1,9 +1,6 @@
 import React from "react";
 import ColumnHeader from "../column-header";
 import TodoCard from "../todo-card";
-import TaskModal from "./task-modal";
-import { useSelector } from "@/store/hooks";
-import { RootState } from "@/store/store";
 import { iTasksType } from "@/types/interfaces";
 
 const TodoList = ({ tasks }: { tasks: iTasksType[] }) => {
