@@ -33,7 +33,7 @@ jobs:
         run: |
           if [[ "${GITHUB_EVENT_NAME}" != "release" || "${{ github.event.inputs.environment }}" == "production" ]]; then
             ENVIRONMENT="production"
-            VERCEL_PROJECT_ID="prj_wjn4lOdtzAXcgJRH4La8kpNPzWZ5"
+            VERCEL_PROJECT_ID="prj_6vHuoUjvyuZdvlAzEEA1ExIdkELh"
           else
             echo "Unsupported environment" >&2
             exit 1
