@@ -1,0 +1,36 @@
+# Workflow name
+name: Preview
+
+# Event for the workflow
+on:
+  pull_request:
+    paths:
+      - "**" # matches every branch
+
+# List of jobs
+jobs:
+  preview:
+    # needs: environment-vars
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+      pull-requests: write
+      deployments: write
+
+    steps:
+      - name: Check out code.
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: 1QccLSas2JVQHX4VBCsnXPhR
+          vercel-project-id: prj_YfdXpe07D8FvH7M7zabuXVWolCNb
+          scope: 1QccLSas2JVQHX4VBCsnXPhR
+          working-directory: ./

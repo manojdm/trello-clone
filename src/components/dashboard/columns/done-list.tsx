@@ -9,7 +9,8 @@ const DoneList = ({ tasks }: { tasks: iTasksType[] }) => {
       <div className="todo-column-list p-3 border border-2 shadow flex-1 w-full">
         <ColumnHeader>DONE</ColumnHeader>
         <div className="todo-cards flex flex-col gap-3 my-3">
-          {tasks.length > 0 && tasks?.map((task) => <TodoCard task={task} />)}
+          {tasks.length > 0 &&
+            tasks?.map((task) => <TodoCard key={task._id} task={task} />)}
         </div>
       </div>
     </>

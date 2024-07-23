@@ -1,0 +1,75 @@
+# Workflow name
+name: App Deploy
+
+# Event for the workflow
+on:
+  push:
+    branches:
+      - master
+      - main
+      - dm*
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy"
+        required: false
+
+# List of jobs
+jobs:
+  environment-vars:
+    name: Set environment variables
+    runs-on: ubuntu-latest
+    outputs:
+      ENVIRONMENT: ${{ steps.set-environment-specific-vars.outputs.ENVIRONMENT }}
+      VERCEL_ORG_ID: ${{ steps.set-environment-specific-vars.outputs.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ steps.set-environment-specific-vars.outputs.VERCEL_PROJECT_ID }}
+
+    steps:
+      - id: set-environment-specific-vars
+        name: Set environment specific variables
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" != "release" || "${{ github.event.inputs.environment }}" == "production" ]]; then
+            ENVIRONMENT="production"
+            VERCEL_PROJECT_ID="prj_wjn4lOdtzAXcgJRH4La8kpNPzWZ5"
+          else
+            echo "Unsupported environment" >&2
+            exit 1
+          fi
+
+          VERCEL_ORG_ID="1QccLSas2JVQHX4VBCsnXPhR"
+
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_OUTPUT
+          echo "VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID" >> $GITHUB_OUTPUT
+          echo "VERCEL_ORG_ID=$VERCEL_ORG_ID" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: environment-vars
+    runs-on: ubuntu-latest
+    environment: ${{ needs.environment-vars.outputs.ENVIRONMENT }}
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+      pull-requests: write
+      deployments: write
+
+    steps:
+      - name: Check out code.
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-args: "--prod"
+          vercel-org-id: ${{ needs.environment-vars.outputs.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ needs.environment-vars.outputs.VERCEL_PROJECT_ID }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          working-directory: ./
+          github-comment: false
