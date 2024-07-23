@@ -9,5 +9,9 @@ export const AuthService = {
 	signUpUser: async (userData: iUserData) => {
 		const { data } = await Axios.Request("post", "user", "", userData);
 		return data;
+	},
+	googleSignIn: async (userData: iUserData) => {
+		const { data } = await Axios.Request("post", "user/google", "", userData);
+		return data;
 	}
 };

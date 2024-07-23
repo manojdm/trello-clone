@@ -9,6 +9,7 @@ import { RootState } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "@/store/hooks";
 import { setUserLogout } from "@/store/slices/auth/signin/slice";
+import { signOut } from "next-auth/react";
 
 const Header = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const Header = () => {
     if (signin.authenticated) {
       window?.localStorage?.clear();
       dispatch(setUserLogout());
+      signOut();
     } else {
       router.push("signin");
     }

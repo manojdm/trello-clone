@@ -1,13 +1,28 @@
 import { ButtonSize, ButtonVariant } from "@/types/button-types";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@/components/design-system/button";
 import { signIn, useSession } from "next-auth/react";
+import { useDispatch } from "@/store/hooks";
+import { googleSignIn } from "@/store/slices/auth/signin/actions";
 
 const Googlesignin = () => {
   const { data: session, status } = useSession();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      dispatch(
+        googleSignIn({
+          username: session?.user?.email as string,
+          email: session?.user?.email as string,
+        })
+      );
+    }
+  }, [session]);
+
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signIn("google", { callbackUrl: "/" });
+      const result = await signIn("google", { callbackUrl: "/signin" });
       if (result?.error) {
         console.error("Google sign-in error:", result.error);
       }

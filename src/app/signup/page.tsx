@@ -32,7 +32,12 @@ const SignUp = () => {
     } else if (signup.accountCreated) {
       router.push("/signin");
     }
-  }, [signin.authenticated, signup.accountCreated]);
+
+    if (signup.errorMessage) {
+      setErrorMessage(signup.errorMessage);
+      setShowErrorMessage(true);
+    }
+  }, [signin, signup]);
 
   const handleSignUp = (e: MouseEvent) => {
     e.preventDefault();

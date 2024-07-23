@@ -18,3 +18,19 @@ export const signinUser =
       dispatch(setUserLoginFail(e.response?.data?.message));
     }
   };
+
+
+  export const googleSignIn = (userData: iUserData) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setUserLoader());
+
+      const data = await AuthService.googleSignIn(userData);
+
+      dispatch(setUserData(data));
+
+      localStorage.setItem("userData", JSON.stringify(data));
+    } catch (e: any) {
+      console.log(e);
+      dispatch(setUserLoginFail(e.response?.data?.message));
+    }
+  };

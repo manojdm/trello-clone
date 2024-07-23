@@ -1,3 +1,4 @@
+import axios from "axios";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
@@ -10,19 +11,28 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      console.log("SignIn callback triggered");
-      return true; // Allow sign-in for now
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_KEY}/api/user/google`,
+        {
+          username: user?.email,
+          email: user?.email,
+          googleId: user?.id,
+        }
+      );
+
+      if (data?.token) {
+        return true;
+      }
+
+      return false;
     },
     async redirect({ url, baseUrl }) {
-      console.log("Redirect callback triggered");
-      return baseUrl;
+      return url;
     },
     async jwt({ token, user }) {
-      console.log("JWT callback triggered");
       return token;
     },
     async session({ session, token }) {
-      console.log("Session callback triggered");
       return session;
     },
   },
@@ -30,7 +40,6 @@ export const authOptions = {
     signIn: "/signin", // Custom sign-in page path
     error: "/signin", // Redirect to sign-in page on error
   },
-  debug: true,
 };
 
 const handler = NextAuth(authOptions);
