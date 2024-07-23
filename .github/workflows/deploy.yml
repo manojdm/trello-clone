@@ -31,11 +31,18 @@ jobs:
       - id: set-environment-specific-vars
         name: Set environment specific variables
         run: |
-          if [[ "${GITHUB_EVENT_NAME}" != "release" || "${{ github.event.inputs.environment }}" == "production" ]]; then
-            ENVIRONMENT="production"
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+          
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            if [[ -z "${ENVIRONMENT}" ]]; then
+              ENVIRONMENT="production"
+            fi
+          fi
+
+          if [[ "${ENVIRONMENT}" == "production" ]]; then
             VERCEL_PROJECT_ID="prj_6vHuoUjvyuZdvlAzEEA1ExIdkELh"
           else
-            echo "Unsupported environment" >&2
+            echo "Unsupported environment: ${ENVIRONMENT}" >&2
             exit 1
           fi
 
