@@ -3,6 +3,7 @@ import Button from "@/components/design-system/button";
 import InputField from "@/components/design-system/form/input";
 import ErrorMessage from "@/components/design-system/notificationSliders/error";
 import Text from "@/components/design-system/text";
+import Googlesignin from "@/components/google-signin";
 import { useDispatch, useSelector } from "@/store/hooks";
 import { signupUser } from "@/store/slices/auth/signup/action";
 import { RootState } from "@/store/store";
@@ -111,14 +112,7 @@ const SignUp = () => {
                 &nbsp; Login
               </Button>
             </div>
-            <div className="sign-up-with-google mt-4">
-              <Button
-                variant={ButtonVariant.Secondary}
-                size={ButtonSize.Medium}
-              >
-                Sign up with Google
-              </Button>
-            </div>
+            <Googlesignin />
           </div>
         </div>
       </div>
