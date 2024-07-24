@@ -16,6 +16,12 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children, session }: any) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+      </head>
       <body className={`${inter.className} min-w-screen min-h-screen`}>
         <Providers>
           <SessionWrapper>
