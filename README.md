@@ -22,13 +22,15 @@ Visit the live application: [https://trello-clone-omega-two.vercel.app/](https:/
 - Redux Toolkit
 - Tailwind CSS
 - Styled Components
-- NextAuth.js for authentication
+- DND-KIT for drag and drop
+- NextAuth.js for Google authentication
 
 ### Backend
 - Node.js
 - Express.js
 - MongoDB with Mongoose ORM
 - JWT for authentication
+- BCrypt for password hashing
 
 ### CI/CD
 - Frontend: Vercel
@@ -38,6 +40,31 @@ Visit the live application: [https://trello-clone-omega-two.vercel.app/](https:/
 
 - Frontend: [https://github.com/manojdm/trello-clone/](https://github.com/manojdm/trello-clone/)
 - Backend: [https://github.com/manojdm/trello-clone-backend](https://github.com/manojdm/trello-clone-backend)
+
+## Infrastructure
+
+### Backend (AWS ECS Fargate)
+- Containerized Node.js application deployed on AWS ECS Fargate
+- Application Load Balancer for distributing traffic
+- Auto-scaling configured based on CPU and memory utilization
+- CloudWatch for logging and monitoring
+
+### Frontend (Vercel)
+- Deployed on Vercel's global edge network
+- Automatic deployments on push to the main branch
+- Serverless functions for API routes
+- Vercel's CDN for static asset caching and delivery
+
+## Security
+
+- Password hashing using bcrypt
+- JWT (JSON Web Tokens) for secure authentication
+- Middleware protection:
+  - All API routes are protected with a custom middleware that verifies JWT tokens
+  - Prevents unauthorized access to sensitive operations
+- HTTPS enforced for all communications
+- CORS (Cross-Origin Resource Sharing) configured to allow requests only from the frontend domain
+
 
 ## Setup and Installation
 
