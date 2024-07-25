@@ -14,7 +14,6 @@ export const signinUser =
 
       localStorage.setItem("userData", JSON.stringify(data));
     } catch (e: any) {
-      console.log(e);
       dispatch(setUserLoginFail(e.response?.data?.message));
     }
   };
@@ -30,7 +29,6 @@ export const signinUser =
 
       localStorage.setItem("userData", JSON.stringify(data));
     } catch (e: any) {
-      console.log(e);
       dispatch(setUserLoginFail(e.response?.data?.message));
     }
   };

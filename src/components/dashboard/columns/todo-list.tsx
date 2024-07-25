@@ -2,6 +2,7 @@ import React from "react";
 import ColumnHeader from "../column-header";
 import TodoCard from "../todo-card";
 import { iTasksType } from "@/types/interfaces";
+import Draggable from "@/components/dnd-kit/draggable";
 
 const TodoList = ({ tasks }: { tasks: iTasksType[] }) => {
   return (
@@ -10,7 +11,11 @@ const TodoList = ({ tasks }: { tasks: iTasksType[] }) => {
         <ColumnHeader>TODO</ColumnHeader>
         <div className="todo-cards flex flex-col gap-3 my-3">
           {tasks.length > 0 &&
-            tasks?.map((task) => <TodoCard key={task._id} task={task} />)}
+            tasks?.map((task) => (
+              <Draggable key={task._id} id={task._id as string}>
+                <TodoCard task={task} />{" "}
+              </Draggable>
+            ))}
         </div>
       </div>
     </>
