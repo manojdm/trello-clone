@@ -11,8 +11,8 @@ const InProgressList = ({ tasks }: { tasks: iTasksType[] }) => {
       <div className="todo-cards flex flex-col gap-3 my-3">
         {tasks.length > 0 &&
           tasks?.map((task) => (
-            <Draggable id={task._id as string}>
-              <TodoCard key={task._id} task={task} />{" "}
+            <Draggable key={task._id} id={task._id as string}>
+              <TodoCard task={task} />{" "}
             </Draggable>
           ))}
       </div>
