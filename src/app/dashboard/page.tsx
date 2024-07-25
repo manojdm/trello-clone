@@ -22,22 +22,25 @@ const Dashboard = () => {
   const tasksList = useSelector((state: RootState) => state.tasks);
 
   const [tasks, setTasks] = useState<iTasksType[]>([]);
-  const [searchTest, setSearchText] = useState<string>("");
+  const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
     if (!signin.authenticated) {
       router.push("/signin");
     }
+
+    console.log("1");
   }, [signin.authenticated]);
 
   useEffect(() => {
     const filteredTasks = tasksList.tasks?.filter(
       (task) =>
-        task?.title?.toLowerCase()?.indexOf(searchTest.toLowerCase()) !== -1
+        task?.title?.toLowerCase()?.indexOf(searchText.toLowerCase()) !== -1
     );
 
     setTasks(filteredTasks);
-  }, [tasks, tasksList?.tasks, searchTest]);
+    console.log("2");
+  }, [tasksList?.tasks, searchText]);
 
   useEffect(() => {
     if (
@@ -49,6 +52,7 @@ const Dashboard = () => {
     } else {
       setTasks(tasksList?.tasks);
     }
+    console.log("3");
   }, [tasksList?.tasks]);
 
   const handleDropEnd = (event: DragEndEvent) => {
@@ -70,7 +74,7 @@ const Dashboard = () => {
             type="string"
             placeholder="Search by title...."
             className="px-8 lg:!w-96 ml-3"
-            value={searchTest}
+            value={searchText}
             onChange={setSearchText}
           />
         </div>

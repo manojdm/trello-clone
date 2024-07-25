@@ -30,6 +30,7 @@ const Header = () => {
       window?.localStorage?.clear();
       dispatch(setUserLogout());
       signOut();
+      router.push("/signin");
     } else {
       router.push("signin");
     }

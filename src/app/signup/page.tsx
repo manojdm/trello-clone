@@ -103,7 +103,7 @@ const SignUp = () => {
                 fullwidth={true}
                 onClick={handleSignUp}
               >
-                Sign In
+                Sign Up
               </Button>
             </div>
           </form>
@@ -113,6 +113,7 @@ const SignUp = () => {
               <Button
                 variant={ButtonVariant.Transparent}
                 size={ButtonSize.None}
+                onClick={() => router.replace("/signin")}
               >
                 &nbsp; Login
               </Button>

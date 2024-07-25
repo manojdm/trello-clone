@@ -80,6 +80,7 @@ const SignUp = () => {
               <Button
                 variant={ButtonVariant.Transparent}
                 size={ButtonSize.None}
+                onClick={() => router.replace("/signup")}
               >
                 &nbsp; Sign up
               </Button>
