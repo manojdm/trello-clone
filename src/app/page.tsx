@@ -1,10 +1,15 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
-export default function Home() {
-  const { data: session, status } = useSession();
-  console.log("Session status:", status);
-  console.log("Session data:", session);
+const Page = () => {
+  const router = useRouter();
 
-  return <div>hello</div>;
-}
+  useEffect(() => {
+    router.push("/signin");
+  }, []);
+
+  return <div>Page</div>;
+};
+
+export default Page;
